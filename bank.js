@@ -12,7 +12,9 @@ class Bank {
     this.address = address;
     this.code = code;
   }
-  manage() {}
+  manage() {
+    return 
+  }
   maintain() {}
   vertify(name) {
     return this.name === name;
@@ -208,7 +210,10 @@ class ATM {
     }
   }
   changePin() {
-    return `idk`;
+    const min = 100000; 
+    const max = 999999; 
+    const pin = Math.floor(Math.random() * (max - min + 1)) + min; // สุ่มตัวเลขระหว่าง min และ max
+    return pin.toString(); // แปลงเป็นสตริง
   }
   transfer() {}
   vertify(name) {
