@@ -28,16 +28,15 @@ class Bank {
   createTransaction(trans, type, amount, date, status) {
     const transaction = new Transaction(trans, type, amount, date, status);
     return transaction;
-}
-
-
-  createCustomer(name,address,phone,email){
-    const cus = new Customer(name,address,phone,email);
-    return cus
   }
 
-  createATM() {
-    const atm = new ATM("BankNPRU", "NPRU");
+  createCustomer(name, address, phone, email) {
+    const cus = new Customer(name, address, phone, email);
+    return cus;
+  }
+
+  createATM(name,location) {
+    const atm = new ATM(name,location);
     return atm;
   }
 
@@ -51,8 +50,8 @@ class Bank {
       return account;
     }
   }
-  toString(){
-    return ` ${this.name}`
+  toString() {
+    return ` ${this.name}`;
   }
 }
 
@@ -81,8 +80,8 @@ class Customer {
   createAccount(bank, accountType) {
     return bank.createAccount(accountType);
   }
-  toString(){
-    return `Customer [Name :${this.name}, Address :${this.address}, Phone :${this.phone}, Email :${this.email}]`
+  toString() {
+    return `Customer [Name :${this.name}, Address :${this.address}, Phone :${this.phone}, Email :${this.email}]`;
   }
 }
 //----------- Account -----------//
@@ -209,7 +208,7 @@ class ATM {
     }
   }
   changePin() {
-    return true;
+    return `idk`;
   }
   transfer() {}
   vertify(name) {
@@ -218,20 +217,20 @@ class ATM {
 }
 
 class Transaction {
-  transaction = "";
+  transactionid = "";
   transactionType = "";
   amount = 0;
   transactionDate = "";
   status = "";
-  constructor(transaction, transactionType, amount, transactionDate, status) {
-    this.transaction = transaction;
+  constructor(transactionid, transactionType, amount, transactionDate, status) {
+    this.transactionid = transactionid;
     this.transactionType = transactionType;
     this.amount = amount;
     this.transactionDate = transactionDate;
     this.status = status;
   }
-  getTransation() {
-    return this.transaction;
+  getTransationId() {
+    return this.transactionid;
   }
   getTransationType() {
     return this.transactionType;
@@ -254,39 +253,46 @@ class Transaction {
   setTransationDate(transactionDate) {
     this.transactionDate = transactionDate;
   }
+  toString(){
+    return `Transaction [ID : ${this.transactionid}, Type :${this.transactionType}, Amount :${this.amount}, Date :${this.transactionDate}, Status :${this.status}]`
+  }
 }
 
 const main = () => {
-    
-    const bank1 = new Bank("BankNPRU","Thailand","789335");
-    const customer1 = bank1.createCustomer("Punsan","BangPhae","0922932011","punsan@gmail.com")
-    const account1 = bank1.createAccount("CurrentAccount");
-    const account2 = bank1.createAccount("SavingAccount");
-    // Add accounts to customer1
-    customer1.addAccount(account1);
-    customer1.addAccount(account2);
- // Deposit and Withdraw example
- account1.deposit(5000); // Deposit 5000
- console.log("Account 1 Balance:", account1.getBalance()); // Display Account 1 balance
+  const bank1 = new Bank("BankNPRU", "Thailand", "789335");
+  const customer1 = bank1.createCustomer(
+    "Punsan",
+    "BangPhae",
+    "0922932011",
+    "punsan@gmail.com"
+  );
+  const account1 = bank1.createAccount("CurrentAccount");
+  const account2 = bank1.createAccount("SavingAccount");
+  // Add accounts to customer1
+  customer1.addAccount(account1);
+  customer1.addAccount(account2);
+  // Deposit and Withdraw example
+  account1.deposit(500);
+  console.log("Account 1 Balance:", account1.getBalance());
 
- account2.withdraw(2000); // Withdraw 2000
- console.log("Account 2 Balance:", account2.getBalance()); // Display Account 2 balance
+  account2.withdraw(2000);
+  console.log("Account 2 Balance:", account2.getBalance());
 
- // Create a transaction
- const transaction1 = bank1.createTransaction(
-     "Transaction1",
-     "TransactionType1",
-     1500,
-     "23/03/2024",
-     "Completed"
- );
- console.log("Transaction 1:", transaction1); // Display transaction1 details
+  // Create a transaction
+  const transaction1 = bank1.createTransaction(
+    "Transaction1",
+    "TransactionType1",
+    1500,
+    "23/03/2024",
+    "Completed"
+  );
+  console.log(transaction1.toString());
 
- // Create an ATM
- const atm1 = bank1.createATM("Location1", "Manager1");
- console.log("ATM Location:", atm1.location); // Display ATM location
+  // Create an ATM
+  const atm1 = bank1.createATM("Location1", "Manager1");
+  console.log("ATM Location:", atm1.location);
 
- // Change PIN for the ATM
- console.log("Change PIN result:", atm1.changePin()); // Display change PIN result
-}
+  // Change PIN for the ATM
+  console.log("Change PIN result:", atm1.changePin());
+};
 main();
